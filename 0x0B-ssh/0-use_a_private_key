@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# bash script that using private key file to secure log in remote server
+ssh ubuntu@35.8.8.8.8 -i ~/.ssh/school
