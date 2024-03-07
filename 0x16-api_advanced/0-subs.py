@@ -1,18 +1,22 @@
 #!/usr/bin/python3
-# get subs
-from requests import get
-from sys import argv
+"""Script that returns the numbers of
+subscribers of a subreddit passed to it"""
+
+import requests
 
 
 def number_of_subscribers(subreddit):
-    """subs"""
-    head = {'User-Agent': 'Dan Kazam'}
-    count = get('https://www.reddit.com/r/{}/about.json'.format(
-        subreddit), headers=head).json()
-    try:
-        return count.get('data').get('subscribers')
-    except:
-        return 0
+    """Function that returns the numbers of
+    subscribers of a subreddit passed to it"""
 
-if __name__ == "__main__":
-    number_of_subscribers(argv[1])
+    apiUrl = "https://reddit.com/r/{}/about.json".format(subreddit)
+    userAgent = "Mozilla/5.0"
+
+    response = requests.get(apiUrl, headers={"user-agent": userAgent})
+    if not response:
+        return 0
+    retValue = response.json().get("data").get("subscribers")
+    if retValue:
+        return retValue
+    else:
+        return 0
